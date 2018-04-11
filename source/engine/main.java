@@ -50,7 +50,7 @@ public class main{
 			int delay = (int) (1000 / fixedTick);
 			ActionListener fixedUpdate = new ActionListener() {
 			      public void actionPerformed(ActionEvent evt) {
-			    	  mainWindow.graphics.requestFocus();
+			    	 // mainWindow.graphics.requestFocus();
 			    	  for(int i = 0; i < SimulationScene.activeScene.objects.size(); i++){
 						SimulationScene.activeScene.objects.get(i).FixedUpdate();
 			    	  }

@@ -1,11 +1,16 @@
 package scripts;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.text.NumberFormat;
 import java.util.Hashtable;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.text.NumberFormatter;
 
 import engine.SimulationObject;
 import engine.SimulationScene;
@@ -17,63 +22,47 @@ import engine.MouseButton;
 import engine.PrimitiveType;
 
 public class Program {
-
-	public static Auto auto = new Auto("auto.png");
-	public static float speed = 5;
-	public static float rotSpeed = 2;
-	
-	public static JSlider fahr;
-	public static JSlider dreh;
-	
-	public static SimulationObject kreis = new SimulationObject(Color.BLUE, 100, 100, PrimitiveType.Oval );
 	
 	public static void Start(){
-		auto.setScale(0.1f);
-		auto.setRotation(270);
+		SimulationSidebar inputs = SimulationWindow.addSidebarLeft("Einstellbare Größen", 3);
 		
-		SimulationScene.createScene("Beispielszene");
-		SimulationScene.loadScene(SimulationScene.getScene("Beispielszene"));
-		SimulationScene.activeScene.addObject(auto, 300, 300);
+		//Define input GUI
+		inputs.getRow(0).add(new JLabel("Masse (in g): "));
 		
-		SimulationScene.activeScene.addObject(kreis, main.WIDTH / 2, main.HEIGHT / 2);
+		NumberFormat format = NumberFormat.getIntegerInstance();
+		NumberFormatter formatter = new NumberFormatter(format);
+		formatter.setMinimum(100);
+		formatter.setMaximum(1000);
+		formatter.setAllowsInvalid(false);
+		formatter.setOverwriteMode(false);
+		formatter.setCommitsOnValidEdit(true);
+		JTextField tf_mass = new JFormattedTextField(formatter);
+		tf_mass.setHorizontalAlignment(JTextField.CENTER);
+		tf_mass.setText("300");
+		tf_mass.setEditable(true);
+		inputs.getRow(0).add(tf_mass);
 		
-		//GUI
-		SimulationSidebar s1 = SimulationWindow.addSidebarLeft("Geschwindigkeit ändern", 2);
-		SimulationSidebar s2 = SimulationWindow.addSidebarRight("Wusstest du?", 2);
+		Hashtable l_mass = new Hashtable();
+		l_mass.put(100, new JLabel("100"));
+		l_mass.put(500, new JLabel("500"));
+		l_mass.put(1000, new JLabel("1000"));
+		JSlider s_mass = new JSlider(100,1000);
+		s_mass.setLabelTable(l_mass);
+		s_mass.setPaintLabels(true);
+		s_mass.setMinorTickSpacing(100);
+		s_mass.setMajorTickSpacing(500);
+		s_mass.setPaintTicks(true);
+		inputs.getRow(1).add(s_mass);
 		
-		//S1
-		Hashtable labels = new Hashtable();
-		labels.put(1,new JLabel("1"));
-		labels.put(5,new JLabel("5"));
-		labels.put(10,new JLabel("10"));
-		
-		fahr = new JSlider(JSlider.HORIZONTAL, 1, 10, 5);
-		dreh = new JSlider(JSlider.HORIZONTAL, 1, 10, 2);
-		fahr.setLabelTable(labels);
-		fahr.setPaintLabels(true);
-		dreh.setLabelTable(labels);
-		dreh.setPaintLabels(true);
-		
-		s1.getRow(0).add(new JLabel("Fahr:"));
-		s1.getRow(0).add(fahr);
-		s1.getRow(1).add(new JLabel("Dreh:"));
-		s1.getRow(1).add(dreh);
-		
-		//S2
-		s2.getRow(0).add(new JLabel("Das Schnabeltier ist das einzige"));
-		s2.getRow(1).add(new JLabel("Säugetier, das Eier legt!"));
 	}
 	
 	public static void Update(){
-		speed = fahr.getValue();
-		rotSpeed = dreh.getValue();	
+		
 	}
 	
 	
 	public static void FixedUpdate(){
-		if(Input.getMouseButton(MouseButton.LEFT)){
-			kreis.setPosition(Input.getMousePosition().x, Input.getMousePosition().y);
-		}
+		
 	}
 	
 }
