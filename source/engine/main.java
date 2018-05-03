@@ -77,6 +77,13 @@ public class main{
 						e.printStackTrace();
 			    	  }
 			    	  mainWindow.graphics.repaint();
+//			    	  if(Input.getMousePosition().x != -1 && Input.getMousePosition().y != -1){
+//			    		  mainWindow.graphics.requestFocus();
+//			    	  }
+			    	  if(Input.getMouseButton(MouseButton.LEFT)){
+			    		  if(!mainWindow.graphics.hasFocus())
+			    		  mainWindow.graphics.requestFocus();
+			    	  }
 			  }
 			  
 	}
