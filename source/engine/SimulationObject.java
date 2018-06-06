@@ -21,6 +21,8 @@ public class SimulationObject {
 	
 	public Image sprite;
 	
+	public String text;
+	
 	
 	public void Update(){}
 	public void FixedUpdate(){}
@@ -40,6 +42,13 @@ public class SimulationObject {
 		this.width = this.sprite.getWidth(null);
 		this.height = this.sprite.getHeight(null);
 		this.type = PrimitiveType.Image;
+	}
+	
+	public SimulationObject(String text, int size, Color color) {
+		this.scale = size;
+		this.text = text;
+		this.type = PrimitiveType.Text;
+		this.color = color;
 	}
 	
 	public void setPosition(float x, float y){

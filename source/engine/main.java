@@ -17,7 +17,7 @@ public class main{
 	
 	public static SimulationWindow mainWindow;
 
-	public static float fixedTick = 120f;
+	public static float fixedTick = 30f;
 	public static Class coreClass;
 	static String coreClassLocation = "scripts.Program";
 	
@@ -60,6 +60,7 @@ public class main{
 							| NoSuchMethodException | SecurityException e) {
 						e.printStackTrace();
 			    	  }	
+			    	  mainWindow.graphics.repaint();
 			      }
 			  };
 			  new Timer(delay, fixedUpdate).start();
@@ -76,7 +77,7 @@ public class main{
 								| NoSuchMethodException | SecurityException e) {
 						e.printStackTrace();
 			    	  }
-			    	  mainWindow.graphics.repaint();
+			    	  
 //			    	  if(Input.getMousePosition().x != -1 && Input.getMousePosition().y != -1){
 //			    		  mainWindow.graphics.requestFocus();
 //			    	  }

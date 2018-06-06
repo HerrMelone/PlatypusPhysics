@@ -4,6 +4,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+
 
 public class ClampingFilter implements FocusListener {
 
@@ -24,21 +27,12 @@ public class ClampingFilter implements FocusListener {
 	}
 
 	@Override
-	public void focusLost(FocusEvent arg0) {
+	public void focusLost(FocusEvent e) {
 		if(Integer.parseInt(target.getText()) < min){
-//			target.setText(Integer.toString(min));
-			target.setText(Integer.toString(max));
-			
-
-			System.out.println(target.getText());
-		}
-		
-		if(Integer.parseInt(target.getText()) > max){
-			target.setText(Integer.toString(max));
-			System.out.println("teee");
-		}
-			
-		
+			target.setText(Integer.toString(min));			
 	}
-
+		SimulationInput si = (SimulationInput)target.getClientProperty("holder");
+		si.slider.setValue(Integer.parseInt(si.tf.getText()));
+		si.value = Integer.parseInt(si.tf.getText());
+}
 }

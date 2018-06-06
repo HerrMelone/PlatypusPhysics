@@ -15,18 +15,28 @@ import javax.swing.text.DocumentFilter;
 
 	@Override
 	public void insertString(DocumentFilter.FilterBypass fb,int offset,String text,AttributeSet attr) throws BadLocationException{
-
+		super.insertString(fb, offset, text, attr);
 	}
 	
 	public void replace(DocumentFilter.FilterBypass fb,int offset,int length,String text,AttributeSet attrs)throws BadLocationException {
-		if(!text.matches("[1234567890]")){
+		String[] chars = text.split("");
+		for(int i = 0; i < chars.length; i++) {
+		if(!chars[i].matches("[1234567890]")){
 			System.out.println("Invalid Input!");
 			return;
 		}	
+		}
 		
+		int val;
+		if(text.length() == 1) {
 		StringBuilder sb = new StringBuilder(fb.getDocument().getText(0, fb.getDocument().getLength()));
 		sb.insert(offset, text);
-		int val =  Integer.parseInt(sb.toString());
+			val =  Integer.parseInt(sb.toString());
+		}
+		else {
+			val = Integer.parseInt(text);
+		}
+		
 		if(val > (int)fb.getDocument().getProperty("max")){
 			System.out.println("Invalid value!");
 			return;
