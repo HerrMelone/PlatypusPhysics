@@ -17,7 +17,7 @@ public class main{
 	
 	public static SimulationWindow mainWindow;
 
-	public static float fixedTick = 30f;
+	public static float fixedTick = 60f;
 	public static Class coreClass;
 	static String coreClassLocation = "scripts.Program";
 	
@@ -54,13 +54,13 @@ public class main{
 			    	  for(int i = 0; i < SimulationScene.activeScene.objects.size(); i++){
 						SimulationScene.activeScene.objects.get(i).FixedUpdate();
 			    	  }
+			    	  mainWindow.graphics.repaint();
 			    	  try {
 						coreClass.getMethod("FixedUpdate", null).invoke(null, null);
 			    	  } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
 							| NoSuchMethodException | SecurityException e) {
 						e.printStackTrace();
 			    	  }	
-			    	  mainWindow.graphics.repaint();
 			      }
 			  };
 			  new Timer(delay, fixedUpdate).start();

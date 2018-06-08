@@ -38,6 +38,11 @@ public class RotationHandler {
 	public static Vector2 speedVector;
 	public static Vector2 tip;
 	
+	public static SimulationObject t_speed;
+	public static SimulationObject t_force;
+	public static float speedFactor = 100f;
+	public static float forceFactor = 100f;
+	
 	public static void setup(){
 		center = new Vector2(main.WIDTH / 2, main.HEIGHT / 2);
 		object = new SimulationObject(Color.BLUE, 100, 100, PrimitiveType.Oval);
@@ -45,6 +50,12 @@ public class RotationHandler {
 		
 		t_radius = new SimulationObject("Radius r", 15, Color.RED);
 		SimulationScene.activeScene.addObject(t_radius, 100, 100);
+		
+		t_speed = new SimulationObject("Bahngeschwindigkeit: 1 m/s =", 15, Color.BLUE);
+		SimulationScene.activeScene.addObject(t_speed, 10, main.HEIGHT - 10);
+		
+		t_force = new SimulationObject("Zentripetalkraft: 1N =", 15, Color.GREEN);
+		SimulationScene.activeScene.addObject(t_force, 10, main.HEIGHT - 30);
 		
 		GUIHandler.updateOutputs();
 	}
@@ -57,9 +68,7 @@ public class RotationHandler {
 		
 		speed = (radius / 100f) * angleSpeed;
 		
-//		force =  (radius / 100) * (angleSpeed * angleSpeed);
 		force = (mass / 1000f) * (speed * speed) / (radius / 100f);
-		//main.mainWindow.graphics.getGraphics().drawString("heyy", 100, 100);
 	}
 	
 	public static void updateRotation() {
@@ -94,16 +103,33 @@ public class RotationHandler {
 		bottom.y = center.y - radius;
 		right.x = center.x + radius;
 		
-		forceVector.setLocalRotation(center, angle, radius - (force * 100f));
+		forceVector.setLocalRotation(center, angle, radius - (force * forceFactor));
 		speedVector.setPosition(object.x, object.y);
-		speedVector.localTranslate(speed * 100, 0, angle + 90);
+		speedVector.localTranslate(speed * speedFactor, 0, angle + 90);
 		
-//		t_radius.setLocalRotation(center, angle, radius / 2 - t_radius.text.length() * 4);
-//		t_radius.setRotation(angle);
+		//Factors
+		if(force >= 25)
+			forceFactor= 10;
+		if(force < 25 && force >= 10)
+			forceFactor = 25;	
+		else if(force < 10 && force >= 5)
+			forceFactor = 50;
+		else if(force < 5)
+			forceFactor = 100;
+		
+		if(speed >= 10)
+			speedFactor = 25;	
+		else if(speed < 10 && speed >= 3)
+			speedFactor = 50;
+		else if(force < 3)
+			speedFactor = 100;
+		
+		//Radius
 		g.setColor(Color.RED);
 		g.drawLine((int)center.x, (int)center.y,(int) right.x,(int) right.y);
 		t_radius.setPosition(center.x + (radius / 2) - t_radius.text.length() * 4, center.y);
 		
+		//Circle
 		g.setColor(Color.BLACK);
 		g.drawLine((int)top.x, (int)top.y, (int)top.x, (int)top.y + 25);
 		g.drawLine((int)bottom.x, (int)bottom.y - 25, (int)bottom.x, (int)bottom.y);
@@ -112,6 +138,7 @@ public class RotationHandler {
 		
 		g.draw(new Ellipse2D.Float(center.x - radius, center.y - radius,radius + radius, radius + radius));
 		
+		//Force
 		g.setColor(Color.GREEN);
 		g.drawLine((int)object.x,(int) object.y,(int) forceVector.x,(int) forceVector.y);
 		tip.setPosition(forceVector.x, forceVector.y);
@@ -121,6 +148,9 @@ public class RotationHandler {
 		tip.localTranslate(10, 5, angle);
 		g.drawLine((int)tip.x, (int)tip.y,(int) forceVector.x,(int) forceVector.y);
 		
+		g.drawLine((int)t_force.x + t_force.text.length() / 2 * 16,(int) t_force.y - 5,(int)( t_force.x + t_force.text.length() / 2 * 16 + forceFactor),(int) t_force.y - 5);
+		
+		//Speed
 		g.setColor(Color.BLUE);
 		g.drawLine((int)object.x,(int) object.y,(int) speedVector.x,(int) speedVector.y);
 		tip.setPosition(speedVector.x, speedVector.y);
@@ -129,6 +159,8 @@ public class RotationHandler {
 		tip.setPosition(speedVector.x, speedVector.y);
 		tip.localTranslate(10, 5, angle - 90);
 		g.drawLine((int)tip.x, (int)tip.y,(int) speedVector.x,(int) speedVector.y);
+		
+		g.drawLine((int)t_speed.x + t_speed.text.length() / 2 * 16,(int) t_speed.y - 5,(int)( t_speed.x + t_speed.text.length() / 2 * 16 + speedFactor),(int) t_speed.y - 5);
 		
 	}
 	

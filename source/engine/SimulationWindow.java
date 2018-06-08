@@ -5,8 +5,12 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -56,7 +60,10 @@ public class SimulationWindow extends JFrame implements ActionListener {
 		content.add(left);
 		content.add(center);
 		content.add(right);
-
+		
+		//set icon
+//		ImageIcon ico= new ImageIcon("images/" + "icon.png/");
+//		main.mainWindow.setIconImage(ico.getImage());
 		
 		this.add(content);
 		this.pack();
@@ -81,7 +88,6 @@ public class SimulationWindow extends JFrame implements ActionListener {
 		
 		//set title
 		main.mainWindow.setTitle("PlatypusPhysics | " + SimulationScene.activeScene.name);
-		
 	}
 	
 	public static SimulationSidebar addSidebarLeft(String title, int rows){

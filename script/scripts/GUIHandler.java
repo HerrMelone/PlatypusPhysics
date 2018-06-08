@@ -28,7 +28,7 @@ public class GUIHandler {
 		outputs = SimulationWindow.addSidebarRight("Messwerte", 7);
 		
 		mass = inputs.addInput(0, "Masse (in g):", 100, 1000);
-		duration = inputs.addInput(2, "Umlaufdauer (in ms):", 1000, 10000);
+		duration = inputs.addInput(2, "Umlaufdauer (in ms):", 1500, 10000);
 		radius = inputs.addInput(4, "Radius (in cm):", 100, 300);
 		
 		speed = outputs.addOutput(0, "Bahngeschwindigkeit:", 20, "m/s");
