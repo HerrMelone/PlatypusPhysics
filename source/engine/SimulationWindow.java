@@ -62,7 +62,7 @@ public class SimulationWindow extends JFrame implements ActionListener {
 		content.add(right);
 		
 		//set icon
-//		ImageIcon ico= new ImageIcon("images/" + "icon.png/");
+//		ImageIcon ico= new ImageIcon("images/" + "auto.png");
 //		main.mainWindow.setIconImage(ico.getImage());
 		
 		this.add(content);

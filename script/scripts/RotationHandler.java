@@ -57,6 +57,8 @@ public class RotationHandler {
 		t_force = new SimulationObject("Zentripetalkraft: 1N =", 15, Color.GREEN);
 		SimulationScene.activeScene.addObject(t_force, 10, main.HEIGHT - 30);
 		
+		updateInputs();
+		updateValues();
 		GUIHandler.updateOutputs();
 	}
 	

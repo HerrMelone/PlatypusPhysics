@@ -37,14 +37,14 @@ public class Program {
 	}
 	
 	public static void Update(){
-		RotationHandler.updateValues();
+		//RotationHandler.updateValues();
 		RotationHandler.updateHelperGUI();
 	}
 	
 	public static void FixedUpdate(){
-		RotationHandler.updateInputs();
+		//RotationHandler.updateInputs();
 		RotationHandler.updateRotation();
-		GUIHandler.updateOutputs();
+		//GUIHandler.updateOutputs();
 	}
 	
 }
